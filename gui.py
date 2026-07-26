@@ -6,14 +6,14 @@ root = tk.Tk()
 root.title("Cylinder Calculator")
 root.geometry("500x500")
 
-frame_1 = tk.Frame(root, bg="red", width=200, height=400)
+frame_1 = tk.Frame(root)
 frame_1.pack(side="left", anchor="n", pady=20, padx=20)
-frame_1.pack_propagate(False)
 
-frame_2 =tk.Frame(root, bg="blue", width=200, height=400)
+
+frame_2 =tk.Frame(root)
 frame_2.pack(side="left", anchor="n", pady=20, padx=20)
-frame_2.pack_propagate(False)
-# Remove color, size, and propegate when finished.
+
+
 
 fields_1 = [
     "Bore (in)",
