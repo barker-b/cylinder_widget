@@ -7,11 +7,17 @@ root = tk.Tk()
 root.title("Cylinder Calculator")
 root.geometry("500x500")
 
-frame_1 = ttk.Frame(root)
+notebook = ttk.Notebook(root)
+notebook.pack(fill="both", expand=True)
+
+cylinder_tab = ttk.Frame(notebook)
+notebook.add(cylinder_tab, text="Cylinder")
+
+frame_1 = ttk.Frame(cylinder_tab)
 frame_1.pack(side="left", anchor="n", pady=20, padx=20)
 
 
-frame_2 =ttk.Frame(root)
+frame_2 =ttk.Frame(cylinder_tab)
 frame_2.pack(side="left", anchor="n", pady=20, padx=20)
 
 
