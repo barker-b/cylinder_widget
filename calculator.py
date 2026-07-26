@@ -24,3 +24,6 @@ def time(flow, stroke, bore, rod):
     ext_time = stroke / ext_speed * 60
     ret_time = stroke / ret_speed * 60
     return ext_time, ret_time
+
+def desired_speed():
+    pass

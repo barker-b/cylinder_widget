@@ -1,47 +1,49 @@
 import tkinter as tk
 import calculator as calc
 from tkinter import messagebox
+from tkinter import ttk
 
 root = tk.Tk()
+info_frame = ttk.Frame(root)
+
+info_frame.pack(side="left", anchor="n", pady= 20, padx=20)
 
 root.title("Cylinder Calculator")
 root.geometry("500x500")
 
-tk.Label(root, text="Bore (in)").pack()
-bore_entry = tk.Entry(root)
-bore_entry.pack()
-
-tk.Label(root, text="Rod (in)").pack()
-rod_entry = tk.Entry(root)
-rod_entry.pack()
-
-tk.Label(root, text="Stroke (in)").pack()
-stroke_entry = tk.Entry(root)
-stroke_entry.pack()
-
-tk.Label(root, text="Pressure (psi)").pack()
-psi_entry = tk.Entry(root)
-psi_entry.pack()
-
-tk.Label(root, text="Flow (gpm)").pack()
-flow_entry = tk.Entry(root)
-flow_entry.pack()
+fields = [
+    "Bore (in)",
+    "Rod (in)",
+    "Stroke (in)",
+    "Pressure (psi)",
+    "Flow (gpm)"
+]
 
 
-output = tk.Label(root, text="", justify="left")
+entries = {}
+
+
+for field in fields:
+    tk.Label(info_frame, text=field).pack()
+    entry = tk.Entry(info_frame)
+    entry.pack()
+    entries[field] = entry
+   
+
+output = tk.Label(info_frame, text="", justify="left")
 output.pack()
 
 def calculate():
-    bore = float(bore_entry.get())
-    rod = float(rod_entry.get())
-    stroke = float(stroke_entry.get())
-    psi = float(psi_entry.get())
-    flow = float(flow_entry.get())
+    bore = float(entries["Bore (in)"].get())
+    rod = float(entries["Rod (in)"].get())
+    stroke = float(entries["Stroke (in)"].get())
+    psi = float(entries["Pressure (psi)"].get())
+    flow = float(entries["Flow (gpm)"].get())
     if rod > bore:
         messagebox.showerror("Invalid Input", "Rod diameter must be smaller " \
         "than bore diameter")
-        rod_entry.delete(0, 'end')
-        rod_entry.focus_set()
+        entries["Rod (in)"].delete(0, 'end')
+        entries["Rod (in)"].focus_set()
         return 
 
     push, pull = calc.force(psi, bore, rod)
@@ -60,21 +62,21 @@ def calculate():
     output.config(text=text)
 
 def reset_fields():
-    bore_entry.delete(0, 'end')
-    rod_entry.delete(0, 'end')
-    psi_entry.delete(0, 'end')
-    flow_entry.delete(0, 'end')
-    stroke_entry.delete(0, 'end')
+    entries["Bore (in)"].delete(0, 'end')
+    entries["Rod (in)"].delete(0, 'end')
+    entries["Stroke (in)"].delete(0, 'end')
+    entries["Pressure (psi)"].delete(0, 'end')
+    entries["Flow (gpm)"].delete(0, 'end')
 
     output.config(text="")
-    bore_entry.focus_set() 
+    entries["Bore (in)"].focus_set() 
 
 
 
 
-tk.Button(root, text="Calculate", command=calculate).pack()
-tk.Button(root, text="Reset", command=reset_fields).pack()
+tk.Button(info_frame, text="Calculate", command=calculate).pack()
+tk.Button(info_frame, text="Reset", command=reset_fields).pack()
 
 root.bind("<Return>", lambda event: calculate())
-bore_entry.focus_set()
+entries["Bore (in)"].focus_set()
 root.mainloop()    
