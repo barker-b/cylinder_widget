@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk
 import calculator as calc
 from tkinter import messagebox
 
@@ -6,11 +7,11 @@ root = tk.Tk()
 root.title("Cylinder Calculator")
 root.geometry("500x500")
 
-frame_1 = tk.Frame(root)
+frame_1 = ttk.Frame(root)
 frame_1.pack(side="left", anchor="n", pady=20, padx=20)
 
 
-frame_2 =tk.Frame(root)
+frame_2 =ttk.Frame(root)
 frame_2.pack(side="left", anchor="n", pady=20, padx=20)
 
 
@@ -31,22 +32,22 @@ entries_1 = {}
 entries_2 = {}
 
 for field in fields_1:
-    tk.Label(frame_1, text=field).pack()
-    entry = tk.Entry(frame_1)
+    ttk.Label(frame_1, text=field).pack()
+    entry = ttk.Entry(frame_1)
     entry.pack()
     entries_1[field] = entry
 
 for field in fields_2:
-    tk.Label(frame_2, text=field).pack()
-    entry = tk.Entry(frame_2)
+    ttk.Label(frame_2, text=field).pack()
+    entry = ttk.Entry(frame_2)
     entry.pack()
     entries_2[field] = entry
    
 
-output_1 = tk.Label(frame_1, text="", justify="left")
+output_1 = ttk.Label(frame_1, text="", justify="left")
 output_1.pack()
 
-output_2 = tk.Label(frame_2, text="", justify="left")
+output_2 = ttk.Label(frame_2, text="", justify="left")
 output_2.pack()
 
 def calculate():
@@ -87,7 +88,7 @@ def reset_fields():
     entries_1["Flow (gpm)"].delete(0, 'end')
 
     output_1.config(text="")
-    entries_1["Rod (in)"].focus_set() 
+    entries_1["Bore (in)"].focus_set() 
 
 
 def speed_calculate():
@@ -102,9 +103,9 @@ def speed_calculate():
 
     output_2.config(text=text_2)
 
-tk.Button(frame_1, text="Calculate", command=calculate).pack()
-tk.Button(frame_1, text="Reset", command=reset_fields).pack()
-tk.Button(frame_2, text="Calculate\nFlow", command=speed_calculate).pack()
+ttk.Button(frame_1, text="Calculate", command=calculate).pack()
+ttk.Button(frame_1, text="Reset", command=reset_fields).pack()
+ttk.Button(frame_2, text="Calculate\nFlow", command=speed_calculate).pack()
 
 root.bind("<Return>", lambda event: calculate())
 entries_1["Bore (in)"].focus_set()
