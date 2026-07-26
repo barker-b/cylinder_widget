@@ -1,17 +1,21 @@
 import tkinter as tk
 import calculator as calc
 from tkinter import messagebox
-from tkinter import ttk
 
 root = tk.Tk()
-info_frame = ttk.Frame(root)
-
-info_frame.pack(side="left", anchor="n", pady= 20, padx=20)
-
 root.title("Cylinder Calculator")
 root.geometry("500x500")
 
-fields = [
+frame_1 = tk.Frame(root, bg="red", width=200, height=400)
+frame_1.pack(side="left", anchor="n", pady=20, padx=20)
+frame_1.pack_propagate(False)
+
+frame_2 =tk.Frame(root, bg="blue", width=200, height=400)
+frame_2.pack(side="left", anchor="n", pady=20, padx=20)
+frame_2.pack_propagate(False)
+# Remove color, size, and propegate when finished.
+
+fields_1 = [
     "Bore (in)",
     "Rod (in)",
     "Stroke (in)",
@@ -19,38 +23,50 @@ fields = [
     "Flow (gpm)"
 ]
 
+fields_2 = [
+    "Desired speed (in/min)"
+]
 
-entries = {}
+entries_1 = {}
+entries_2 = {}
 
-
-for field in fields:
-    tk.Label(info_frame, text=field).pack()
-    entry = tk.Entry(info_frame)
+for field in fields_1:
+    tk.Label(frame_1, text=field).pack()
+    entry = tk.Entry(frame_1)
     entry.pack()
-    entries[field] = entry
+    entries_1[field] = entry
+
+for field in fields_2:
+    tk.Label(frame_2, text=field).pack()
+    entry = tk.Entry(frame_2)
+    entry.pack()
+    entries_2[field] = entry
    
 
-output = tk.Label(info_frame, text="", justify="left")
-output.pack()
+output_1 = tk.Label(frame_1, text="", justify="left")
+output_1.pack()
+
+output_2 = tk.Label(frame_2, text="", justify="left")
+output_2.pack()
 
 def calculate():
-    bore = float(entries["Bore (in)"].get())
-    rod = float(entries["Rod (in)"].get())
-    stroke = float(entries["Stroke (in)"].get())
-    psi = float(entries["Pressure (psi)"].get())
-    flow = float(entries["Flow (gpm)"].get())
+    bore = float(entries_1["Bore (in)"].get())
+    rod = float(entries_1["Rod (in)"].get())
+    stroke = float(entries_1["Stroke (in)"].get())
+    psi = float(entries_1["Pressure (psi)"].get())
+    flow = float(entries_1["Flow (gpm)"].get())
     if rod > bore:
-        messagebox.showerror("Invalid Input", "Rod diameter must be smaller " \
+        messagebox.showerror("Invalid Input", "Rod diameter must be smaller "\
         "than bore diameter")
-        entries["Rod (in)"].delete(0, 'end')
-        entries["Rod (in)"].focus_set()
+        entries_1["Rod (in)"].delete(0, 'end')
+        entries_1["Rod (in)"].focus_set()
         return 
 
     push, pull = calc.force(psi, bore, rod)
     ext_speed, ret_speed = calc.speed(flow, bore, rod)
     ext_time, ret_time = calc.time(flow, stroke, bore, rod)
 
-    text = (
+    text_1 = (
         f"Push Force: {push:,.0f} lbs\n"
         f"Pull Force: {pull:,.0f} lbs\n\n"
         f"Extension Speed: {ext_speed:.0f} in/min\n"
@@ -59,24 +75,38 @@ def calculate():
         f"Retraction Time: {ret_time:.0f} sec"
     )
 
-    output.config(text=text)
+    output_1.config(text=text_1)
+
+    
 
 def reset_fields():
-    entries["Bore (in)"].delete(0, 'end')
-    entries["Rod (in)"].delete(0, 'end')
-    entries["Stroke (in)"].delete(0, 'end')
-    entries["Pressure (psi)"].delete(0, 'end')
-    entries["Flow (gpm)"].delete(0, 'end')
+    entries_1["Bore (in)"].delete(0, 'end')
+    entries_1["Rod (in)"].delete(0, 'end')
+    entries_1["Stroke (in)"].delete(0, 'end')
+    entries_1["Pressure (psi)"].delete(0, 'end')
+    entries_1["Flow (gpm)"].delete(0, 'end')
 
-    output.config(text="")
-    entries["Bore (in)"].focus_set() 
-
-
+    output_1.config(text="")
+    entries_1["Rod (in)"].focus_set() 
 
 
-tk.Button(info_frame, text="Calculate", command=calculate).pack()
-tk.Button(info_frame, text="Reset", command=reset_fields).pack()
+def speed_calculate():
+    des_speed = float(entries_2["Desired speed (in/min)"].get())
+    bore = float(entries_1["Bore (in)"].get())
+    flow = calc.desired_speed(des_speed, bore)
+
+    text_2 = (
+        f"Needed flow for {des_speed:.0f} in/min.\n"
+        f"{flow:.1f} gpm."
+    )
+
+    output_2.config(text=text_2)
+
+tk.Button(frame_1, text="Calculate", command=calculate).pack()
+tk.Button(frame_1, text="Reset", command=reset_fields).pack()
+tk.Button(frame_2, text="Calculate\nFlow", command=speed_calculate).pack()
 
 root.bind("<Return>", lambda event: calculate())
-entries["Bore (in)"].focus_set()
+entries_1["Bore (in)"].focus_set()
 root.mainloop()    
+

@@ -25,5 +25,6 @@ def time(flow, stroke, bore, rod):
     ret_time = stroke / ret_speed * 60
     return ext_time, ret_time
 
-def desired_speed():
-    pass
+def desired_speed(des_speed, bore):
+    need_flow = des_speed * major_area(bore) / 231
+    return need_flow
