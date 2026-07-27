@@ -14,7 +14,7 @@ def force(psi, bore, rod):
     pull = psi * minor_area(bore, rod)
     return push, pull
 
-def speed(flow, bore, rod):
+def cyl_speed(flow, bore, rod):
     ext_speed = flow * 231 / major_area(bore)
     ret_speed = flow * 231 / minor_area(bore, rod)
     return ext_speed, ret_speed
@@ -28,3 +28,7 @@ def time(flow, stroke, bore, rod):
 def desired_speed(des_speed, bore):
     need_flow = des_speed * major_area(bore) / 231
     return need_flow
+
+def mot_speed():
+    speed = 231 * gpm / displacement
+    pass

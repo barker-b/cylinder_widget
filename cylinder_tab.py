@@ -68,7 +68,7 @@ def build_cyl_tab(notebook):
             return 
 
         push, pull = calc.force(psi, bore, rod)
-        ext_speed, ret_speed = calc.speed(flow, bore, rod)
+        ext_speed, ret_speed = calc.cyl_speed(flow, bore, rod)
         ext_time, ret_time = calc.time(flow, stroke, bore, rod)
 
         text_1 = (
