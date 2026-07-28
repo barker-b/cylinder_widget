@@ -20,7 +20,7 @@ def cyl_speed(flow, bore, rod):
     return ext_speed, ret_speed
 
 def time(flow, stroke, bore, rod):
-    ext_speed, ret_speed = speed(flow, bore, rod)
+    ext_speed, ret_speed = cyl_speed(flow, bore, rod)
     ext_time = stroke / ext_speed * 60
     ret_time = stroke / ret_speed * 60
     return ext_time, ret_time
@@ -30,5 +30,13 @@ def desired_speed(des_speed, bore):
     return need_flow
 
 def mot_speed():
-    speed = 231 * gpm / displacement
+    speed =  231 * gpm / displacement
+    pass
+
+def torque():
+    torque = (psi * displacement) / (2 * math.pi)
+    pass
+
+def desired_motor_speed():
+    need_flow = motorspeed * displacement
     pass

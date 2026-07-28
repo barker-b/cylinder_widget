@@ -24,6 +24,15 @@ def build_mot_tab(notebook):
     output = ttk.Label(frame, text="", justify="left")
     output.pack()
 
+    def calculate():
+        flow = float(entries["Flow (gpm)"].get())
+        displacement = float(entries["Displacement (in³/rev)"].get())
+        return
+
+    def reset_fields():
+        pass
+
+    
 
 
 
