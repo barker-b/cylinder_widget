@@ -37,6 +37,6 @@ def torque(pressure, displacement):
     torque = (pressure * displacement) / (2 * math.pi)
     return torque
 
-def desired_motor_speed():
-    need_flow = motorspeed * displacement
-    pass
+def desired_motor_speed(des_speed, displacement):
+    need_flow = des_speed * displacement / 231
+    return need_flow

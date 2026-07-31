@@ -109,5 +109,6 @@ def build_cyl_tab(notebook):
 
     ttk.Button(frame_1, text="Calculate", command=calculate).pack()
     ttk.Button(frame_1, text="Reset", command=reset_fields).pack()
-    ttk.Button(frame_2, text="Calculate\nFlow", command=speed_calculate).pack()    
+    ttk.Button(frame_2, text="Calculate\nFlow", command=speed_calculate).pack()
+    
     return tab
