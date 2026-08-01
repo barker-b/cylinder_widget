@@ -53,8 +53,8 @@ def build_mot_tab(notebook):
         
         # text lines still need formatting.
         text_1 = (
-            f"Motor speed is {speed} rpm.\n"
-            f"Motor torque is {torque} in-lb's"
+            f"Motor speed is {speed:,.0f} rpm.\n"
+            f"Motor torque is {torque:,.0f} in-lb's"
         )
 
         
@@ -67,8 +67,9 @@ def build_mot_tab(notebook):
 
         need_flow = calc.desired_motor_speed(des_speed, displacement)
 
+        # this line needs formatting as well
         text_2 = (
-            f"Flow for desired motor speed: {need_flow} gpm."
+            f"Flow for desired motor speed: {need_flow:,.0f} gpm."
         )
 
         output_2.configure(text=text_2)
@@ -85,15 +86,6 @@ def build_mot_tab(notebook):
     ttk.Button(frame_1, text="Calculate", command=calculate).pack()
     ttk.Button(frame_1, text="Reset", command=reset_fields).pack()
     ttk.Button(frame_2, text= "Calculate", command=speed_calculate).pack()
-
-
-
-
-
-
-
-
-
 
 
     return tab
