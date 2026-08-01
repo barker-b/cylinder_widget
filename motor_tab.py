@@ -51,7 +51,7 @@ def build_mot_tab(notebook):
         torque = calc.torque(pressure, displacement)
         
         
-        # text lines still need formatting.
+
         text_1 = (
             f"Motor speed is {speed:,.0f} rpm.\n"
             f"Motor torque is {torque:,.0f} in-lb's"
@@ -67,7 +67,6 @@ def build_mot_tab(notebook):
 
         need_flow = calc.desired_motor_speed(des_speed, displacement)
 
-        # this line needs formatting as well
         text_2 = (
             f"Flow for desired motor speed: {need_flow:,.0f} gpm."
         )
